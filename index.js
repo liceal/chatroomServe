@@ -19,8 +19,6 @@ var serverNumber = 0;
 var idle = [...users.keys()];
 //在线用户池
 var online = [];
-//消息池
-var msgs = {};
 
 
 /**
