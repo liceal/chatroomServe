@@ -1,0 +1,15 @@
+{
+    "name": "chatroom-nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "nodejs-websocket": "^1.7.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "liceal",
+    "license": "ISC"
+}
