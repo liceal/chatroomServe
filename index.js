@@ -104,7 +104,7 @@ const server = ws.createServer(
 
 
     }
-).listen(666)
+).listen(process.env.PORT || 666)
 
 /**
  * 广播
