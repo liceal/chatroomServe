@@ -30,6 +30,7 @@ var online = [];
  * 200发送用户列表
  * 201发送用户信息
  * 202发送聊天信息
+ * 300心跳
  * }
  */
 const server = ws.createServer(
@@ -68,20 +69,29 @@ const server = ws.createServer(
             }
             broadcast(JSON.stringify(data)) //广播在线人
         }
+
         //接受消息监听
-        conn.on('text', msg => {
+        conn.on('text', data => {
             const value = `来自服务端的消息是：${msg}`
             console.log(value);
-
-            let data = {
-                code: 202,
-                res: {
-                    user: users[conn.userIndex].name,
-                    time: dateTime(),
-                    msg: msg
+            data = JSON.parse(data)
+            if (data.type == 'state') {
+                let data = {
+                    code: 300,
+                    res: null
                 }
+                conn.sendText(JSON.stringify(data))
+            } else if (data.type == 'text') {
+                let data = {
+                    code: 202,
+                    res: {
+                        user: users[conn.userIndex].name,
+                        time: dateTime(),
+                        msg: msg
+                    }
+                }
+                broadcast(JSON.stringify(data))
             }
-            broadcast(JSON.stringify(data))
         })
 
         //完成握手监听
