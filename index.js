@@ -71,23 +71,23 @@ const server = ws.createServer(
         }
 
         //接受消息监听
-        conn.on('text', res => {
-            const value = `来自服务端的消息是：${res}`
+        conn.on('text', Response => {
+            const value = `来自服务端的消息是：${Response}`
             console.log(value);
-            res = JSON.parse(res)
-            if (res.type == 'state') {
+            Response = JSON.parse(Response)
+            if (Response.type == 'state') {
                 let data = {
                     code: 300,
-                    res: null
+                    msg: null
                 }
                 conn.sendText(JSON.stringify(data))
-            } else if (res.type == 'text') {
+            } else if (Response.type == 'text') {
                 let data = {
                     code: 202,
                     res: {
                         user: users[conn.userIndex].name,
                         time: dateTime(),
-                        msg: msg
+                        msg: Response.msg
                     }
                 }
                 broadcast(JSON.stringify(data))
